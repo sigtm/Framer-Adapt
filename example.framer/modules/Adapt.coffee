@@ -59,7 +59,9 @@ makeOption = (label, value = "none") ->
 
 
 Adapt = {}
-Adapt._dpr = null
+Adapt.dpr = null
+Adapt.width = null
+Adapt.height = null
 
 
 # Every device from Framer's DeviceComponent, with their corresponding base class
@@ -555,13 +557,11 @@ Adapt.addDeviceSelector = ->
 # Set Adapt._dpr and go full screen if it's a non-desktop device
 Adapt.init = ->
 
-	Adapt._dpr = Adapt._getDpr()
-
 	if Utils.isDesktop()
 
 		Adapt.addDeviceSelector()
 
-		urlVars = getUrlVars(window.location.href)
+		urlVars = getUrlVars()
 
 		if urlVars.deviceType?
 			Framer.Device.deviceType = urlVars.deviceType
@@ -574,11 +574,15 @@ Adapt.init = ->
 
 		Framer.Device.deviceType = "fullscreen"
 
+	Adapt.dpr = Adapt._getDpr()
+	Adapt.width = Screen.width / Adapt.dpr
+	Adapt.height = Screen.height / Adapt.dpr
+
 	window.dp ?= Adapt.dp
 
 
 # Calculate real pixel value from a dp value
-Adapt.dp = (value) -> value * Adapt._dpr
+Adapt.dp = (value) -> value * Adapt.dpr
 
 
 # Initialize

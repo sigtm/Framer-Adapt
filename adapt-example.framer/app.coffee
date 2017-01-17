@@ -146,9 +146,11 @@ updateLayout = ->
 		item.fakeText.centerY()
 	
 	scroll.updateContent()
-			
+	scroll.size = Screen.size
 
 updateLayout()
 
+# Make sure to re-init Adapt when the screen size changes
 window.addEventListener "resize", ->
-	window.location.reload()
+	Adapt.init()
+	updateLayout()

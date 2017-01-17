@@ -2,7 +2,7 @@
 # Framer-Adapt
 A small module that helps you run a single prototype on multiple devices, independently of which device you picked in Framer Studio
 
-Here's an [example](https://framer.cloud/jAjMg) to give you a basic idea. Use the controls in the top right corner to test different device sizes and orientations.
+Here's an [example](https://framer.cloud/jAjMg) to give you a basic idea. Use the controls in the top right corner to test different devices and orientations.
 
 ### It gives you the following
 1. Your prototype will run in full screen and native dimensions on any non-desktop device
@@ -41,7 +41,7 @@ Using `Adapt.width` to set the number of columns based on screen width:
 columns = switch
 	when Adapt.width < 400 then 1
 	when Adapt.width < 700 then 2
-	when Adapt.width < 1000 then 3s
+	when Adapt.width < 1000 then 3
 	else 4
 
 for i in [0...columns]

@@ -12,7 +12,7 @@ getUrlVars = () ->
 	return vars
 
 
-# Get the URL variables as an object
+# Make parameter string from object
 makeUrlString = (obj) ->
 
 	string = "?"
@@ -553,6 +553,9 @@ Adapt.addDeviceSelector = ->
 			Adapt._deviceSelector.appendChild makeOption(device, device)
 
 
+# Calculate real pixel value from a dp value
+Adapt.dp = (value) -> value * Adapt.dpr
+
 
 # Set Adapt._dpr and go full screen if it's a non-desktop device
 Adapt.init = ->
@@ -579,10 +582,6 @@ Adapt.init = ->
 	Adapt.height = Screen.height / Adapt.dpr
 
 	window.dp ?= Adapt.dp
-
-
-# Calculate real pixel value from a dp value
-Adapt.dp = (value) -> value * Adapt.dpr
 
 
 # Initialize

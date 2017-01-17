@@ -2,10 +2,10 @@
 A small module that helps you run a single prototype on multiple devices, independently of which device you picked in Framer Studio
 
 ### It gives you the following
-1. Your prototype will run in full screen on any non-desktop device
+1. Your prototype will run in full screen and native dimension on any non-desktop device
 2. When viewing on desktop, you can change the device and orientation on the fly from the browser
 3. A dp() function to always define sizes in 1x, with accurate devicePixelRatio values on any device
-4. Adapt.width and Adapt.height always returns the screen dimensions in 1x
+4. Adapt.width and Adapt.height always returns the screen dimensions in 1x, so you can set breakpoints and adapt your prototype based on screen size
 
 ### Examples
 
@@ -32,13 +32,13 @@ myLayer = new Layer
 	height: dp 200
 ```
 
-Use `Adapt.width` to make 1, 2, 3 or 4 columns
+Using `Adapt.width` to set the number of columns based on screen width:
 
 ```coffeescript
 columns = switch
 	when Adapt.width < 400 then 1
 	when Adapt.width < 700 then 2
-	when Adapt.width < 1000 then 3
+	when Adapt.width < 1000 then 3s
 	else 4
 
 for i in [0...columns]

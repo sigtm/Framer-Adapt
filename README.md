@@ -2,13 +2,15 @@
 # Framer-Adapt
 A small module that helps you run a single prototype on multiple devices, independently of which device you picked in Framer Studio
 
+Here's an [example](https://framer.cloud/jAjMg) to give you a basic idea. Use the controls in the top right corner to test different device sizes and orientations.
+
 ### It gives you the following
-1. Your prototype will run in full screen and native dimension on any non-desktop device
+1. Your prototype will run in full screen and native dimensions on any non-desktop device
 2. When viewing on desktop, you can change the device and orientation on the fly from the browser
 3. A dp() function to always define sizes in 1x, with accurate devicePixelRatio values on any device
 4. Adapt.width and Adapt.height always returns the screen dimensions in 1x, so you can set breakpoints and adapt your prototype based on screen size
 
-### Examples
+### Syntax and examples
 
 Import module:
 

@@ -493,7 +493,7 @@ Adapt.unexclude = (group) ->
 # Add dropdown for selecting a different device
 Adapt.addDeviceSelector = ->
 
-	return if FramerStudio? or not Utils.isDesktop()
+	return if Utils.isFramerStudio() or Utils.isMobile()
 
 	if not Adapt._controlDiv
 

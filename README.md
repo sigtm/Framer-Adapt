@@ -4,7 +4,7 @@
 A small module for when you're designing across multiple devices and sizes. It does three things:
 
 
-### Simple breakpoint handling
+### 1. Simple breakpoint handling
 
 Give your variables separate values for each breakpoint, and Adapt automatically retrieves the correct one when you need it. Like so:
 
@@ -28,12 +28,12 @@ text = new TextLayer
 ```
 
 
-### Automatic full screen on mobile
+### 2. Automatic full screen on mobile
 
 Regardless of which device you choose to present with on desktop, the prototype will run in full screen when you run it on mobile/tablet. Otherwise, you might see a picture of an iPhone in the middle of your iPad screen for example.
 
 
-### Pick device on the fly
+### 3. Pick device on the fly
 
 Optionally, add a device picker drop-down to your prototype, so you and your clients can pick devices on the fly in your browser without editing and re-uploading the prototype.
 

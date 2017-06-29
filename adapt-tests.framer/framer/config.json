@@ -6,16 +6,16 @@
   "contentScale" : 1,
   "cachedDeviceWidth" : 0,
   "deviceType" : "fullscreen",
-  "sharedPrototype" : true,
+  "sharedPrototype" : 0,
   "propertyPanelToggleStates" : {
 
   },
-  "projectId" : "32CBEAE4-ED6F-41C6-BECA-667CE192C387",
+  "projectId" : "C23F2A65-1C4B-4993-8DF0-0744AE82C641",
   "deviceOrientation" : 0,
   "selectedHand" : "",
   "showBezel" : 0,
   "foldedCodeRanges" : [
-
+    "{926, 615}"
   ],
   "deviceScale" : 1
 }

@@ -1,156 +1,107 @@
-# Import Adapt
+# Require Adapt
 # --------------------------------------------------------------------------------
 
 {Adapt} = require "Adapt"
 
 
-# Exclude a couple device groups we don't need
+
+# Enable picker and exclude some stuff
 # --------------------------------------------------------------------------------
 
-Adapt.exclude "Apple - Watch"
-Adapt.exclude "Other - Desktop & TV"
+Adapt.picker.enable()
+
+Adapt.picker.exclude "Apple Watch"
+Adapt.picker.exclude "Other"
 
 
-# For fun and debugging, console.log() an object listing all the base devices
+
+# Set screen and canvas color
 # --------------------------------------------------------------------------------
 
-baseDevices = {}
-
-for device, base of Adapt._getFlatDeviceList()
-
-	base = base.replace /Hand$/g, ""
-	
-	baseDevices[base] ?= {}
-	baseDevices[base].devices ?= []
-	baseDevices[base].screenSize ?=
-		width: DeviceComponent.Devices[device].screenWidth
-		height: DeviceComponent.Devices[device].screenHeight
-	
-	if Adapt._dprList[base]
-		baseDevices[base].screenSizeAt1x ?= 
-			width: baseDevices[base].screenSize.width / Adapt._dprList[base]
-			height: baseDevices[base].screenSize.height / Adapt._dprList[base]
-	
-	if not Adapt._dprList[base]
-		console.log "Adapt: Oops, the base device '#{base}' is missing from the dpr list"
-		
-	baseDevices[base].devices.push device
-
-console.log baseDevices
-
-
-# A simple example of an adaptive layout
-# --------------------------------------------------------------------------------
-
-# Colors
-
-accentColor = "#6ea"
-darkColor = "#222"
-
-# Some basics
-
-Framer.Defaults.Layer =
-	backgroundColor: ""
-
+Canvas.backgroundColor = "#ddd"
 Screen.backgroundColor = "white"
-Canvas.backgroundColor = darkColor
 
-# Scroll component
 
-scroll = new ScrollComponent
-	size: Screen.size
-	scrollHorizontal: false
 
-# Header
+# Set our breakpoints
+# --------------------------------------------------------------------------------
 
-header = new Layer
-	parent: scroll.content
-	height: dp 200
-	backgroundColor: accentColor
+Adapt.setBreakpoints
+	small: 600
+	medium: 800
+	large: 1200
 
-header.fakeText = new Layer
-	parent: header
-	size: dp(48)
-	rotation: 45
-	borderColor: "white"
-	borderWidth: dp(3)
 
-# Make list
 
-list = []
+# Now we'll define some parameters for our UI
+# --------------------------------------------------------------------------------
 
-for i in [0...40]
+Adapt.columns =
+	small: 1
+	medium: 2
+	large: 4
+	other: 6
 
-	item = new Layer
-		parent: scroll.content
+Adapt.gutter =
+	small: 6
+	medium: 12
+	large: 18
+	other: 24
+
+Adapt.text =
+	small: "Tiny"
+	medium: "Smallish"
+	large: "Normal"
+	other: "Huge!"
 	
-	item.thumbnail = new Layer
-		parent: item
-		backgroundColor: accentColor
-	
-	item.fakeText = new Layer
-		parent: item
-		backgroundColor: darkColor
-		height: dp(3)
-	
-	list.push item
+Adapt.fontSize =
+	small: 48
+	medium: 64
+	large: 96
+	other: 128
 
-# Create the layout based on screen size
 
-updateLayout = ->
-	
-	# Device sensitive
-	
-	size = switch
-		when Adapt.width < 400 then "small"
-		when Adapt.width < 650 then "medium"
-		when Adapt.width < 1000 then "large"
-		else "xlarge"
 
-	margin = switch size
-		when "small" then dp 20
-		when "medium" then dp 24
-		when "large" then dp 32
-		when "xlarge" then dp 60
+# Draw the UI!
+# --------------------------------------------------------------------------------
+
+# Now we just use Adapt.columns, Adapt.fontSize, etc directly and it automatically
+# returns just the correct value for the current breakpoint.
+
+
+# Draw a column grid
+
+colWidth = Screen.width / Adapt.columns
+
+for i in [0...Adapt.columns]
+
+	column = new Layer
+		x: i * colWidth
+		width: colWidth
+		height: Screen.height
+		backgroundColor: ""
+		opacity: 0.4
 	
-	columns = switch size
-		when "small", "medium" then 1
-		when "large" then 2
-		when "xlarge" then 3
+	inner = new Layer
+		parent: column
+		x: Adapt.gutter
+		width: column.width - (Adapt.gutter * 2)
+		height: column.height
+		backgroundColor: "#0cb"
 	
-	itemHeight = if size is "small" then dp(60) else dp(80)
-	
-	# Universal
-	
-	header.width = Screen.width
-	header.fakeText.center()
-	
-	for item, i in list
-	
-		item.props =
-			x: (i % columns) * (Screen.width / columns)
-			y: dp(80) * Math.floor(i / columns) + (header.maxY + margin)
-			width: Screen.width / columns
-			height: itemHeight
 		
-		item.thumbnail.props =
-			x: margin
-			size: itemHeight / 6
-			borderRadius: itemHeight / 12
-		
-		item.fakeText.props =
-			x: item.thumbnail.maxX + (item.thumbnail.width * 2)
-			width: Math.random() * dp(80) + dp(100)
-		
-		item.thumbnail.centerY()
-		item.fakeText.centerY()
-	
-	scroll.updateContent()
-	scroll.size = Screen.size
+# Add text layer
 
-updateLayout()
+text = new TextLayer
+	text: Adapt.text
+	fontSize: Adapt.fontSize
+	fontWeight: "bold"
+	textTransform: "uppercase"
+	color: "#222"
 
-# Make sure to re-init Adapt when the screen size changes
-window.addEventListener "resize", ->
-	Adapt.init()
-	updateLayout()
+text.center()
+
+
+# We'll keep it simple and just refresh the prototype on resize
+
+window.onresize = Utils.debounce 0.1, -> location.reload()

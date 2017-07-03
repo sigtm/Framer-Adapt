@@ -51,7 +51,7 @@ Adapt.picker.exclude "Other"
 
 ## Example
 
-Here's an [example](https://framer.cloud/lQpFs/) to give you a basic idea. Use the controls in the top right corner to test different devices and orientations.
+Here's an [example](https://framer.cloud/dirDC) to give you a basic idea. Use the controls in the top right corner to test different devices and orientations.
 
 
 ## Adding Adapt

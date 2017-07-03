@@ -18,7 +18,7 @@ Adapt.picker.exclude "Other"
 # Set screen and canvas color
 # --------------------------------------------------------------------------------
 
-Canvas.backgroundColor = "#ddd"
+Canvas.backgroundColor = "#222"
 Screen.backgroundColor = "white"
 
 

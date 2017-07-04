@@ -35,6 +35,14 @@ makeOption = (label, value = "none") ->
 	return opt
 
 
+# Since Utils.isDesktop() doesn't seem to pick up everything (notably some Android devices)
+isDesktop = ->
+
+	if /(tablet)|(iPad)|(Nexus 9)|(mobi)|(Android)/i.test(navigator.userAgent)
+		return false
+
+	return true
+
 
 # Device picker
 # --------------------------------------------------------------------------------
@@ -266,7 +274,7 @@ Picker.include = (group) ->
 # Add dropdown for selecting a different device
 Picker.enable = ->
 
-	return if Utils.isFramerStudio() or Utils.isMobile()
+	return if not isDesktop()
 
 	if not Picker._controlDiv
 
@@ -440,7 +448,7 @@ base._values = {}
 #
 base.init = ->
 
-	if Utils.isDesktop()
+	if isDesktop()
 
 		urlVars = getUrlVars()
 
@@ -454,6 +462,7 @@ base.init = ->
 	else
 
 		Framer.Device.deviceType = "fullscreen"
+
 
 
 

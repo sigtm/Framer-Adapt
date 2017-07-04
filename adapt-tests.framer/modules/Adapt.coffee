@@ -250,28 +250,18 @@ Picker._deviceList =
 # Exclude device group from list
 Picker.exclude = (group = "") ->
 
-	match = null
-
 	for key, value of Picker._deviceList
 
 		if group.toLowerCase() is key.toLowerCase()
 
-			match = value._excludeFromList = true
+			value._excludeFromList = true
 
-	if match
-
-		Picker.enable()
-
-	else
-
-		console.log "Picker: Can't exclude '#{group}', no group by that name"
+	Picker.enable()
 
 
 
 # Reinclude an excluded device group in list
 Picker.include = (group = "") ->
-
-	match = null
 
 	for key, value of Picker._deviceList
 
@@ -279,12 +269,7 @@ Picker.include = (group = "") ->
 
 			match = value._excludeFromList = false
 
-	if match
-
-		Picker.enable()
-
-	else
-		console.log "Picker: Can't include '#{group}', no group by that name"
+	Picker.enable()
 
 
 
@@ -527,9 +512,11 @@ handler =
 	get: (target, prop, receiver) ->
 		
 		if target._values?[prop]
-			return target._values[prop][target.check()]
+
+			return target._values[prop][target.check()] or target._values[prop]
 		
 		else
+			
 			return target[prop]
 
 

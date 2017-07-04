@@ -148,6 +148,17 @@ runTest
 	test: Adapt.columns
 
 
+simpleValue =
+	foo: true
+	bar: false
+
+runTest
+	name: "Add non-responsive value and retreive it"
+	match: simpleValue
+	test: ->
+		Adapt.simpleValue = simpleValue
+		Adapt.simpleValue
+
 
 runTest
 	name: "setting Screen.height based evaluator"

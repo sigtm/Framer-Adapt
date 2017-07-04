@@ -16,20 +16,20 @@ by outputting a bunch of stuff to the console.
 {Adapt} = require "Adapt"
 
 
-# Enable picker and exclude some stuff
+# Enable picker and exclude some stuff (also testing case insensitivity)
 # --------------------------------------------------------------------------------
 
 Adapt.picker.enable()
 
-Adapt.picker.exclude "Apple Watch"
-Adapt.picker.exclude "Other"
+Adapt.picker.exclude "apple watch"
+Adapt.picker.exclude "other"
 
 
 # Exclude and re-include iPhones
 # --------------------------------------------------------------------------------
 
-Adapt.picker.exclude "iPhone"
-Adapt.picker.include "iPhone"
+Adapt.picker.exclude "iphone"
+Adapt.picker.include "iphone"
 
 
 # Simple tester

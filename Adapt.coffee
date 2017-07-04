@@ -248,27 +248,44 @@ Picker._deviceList =
 
 
 # Exclude device group from list
-Picker.exclude = (group) ->
+Picker.exclude = (group = "") ->
 
-	if Picker._deviceList[group]
+	match = null
 
-		Picker._deviceList[group]._excludeFromList = true
+	for key, value of Picker._deviceList
+
+		if group.toLowerCase() is key.toLowerCase()
+
+			match = value._excludeFromList = true
+
+	if match
+
 		Picker.enable()
 
 	else
+
 		console.log "Picker: Can't exclude '#{group}', no group by that name"
 
 
+
 # Reinclude an excluded device group in list
-Picker.include = (group) ->
+Picker.include = (group = "") ->
 
-	if Picker._deviceList[group]
+	match = null
 
-		Picker._deviceList[group]._excludeFromList = false
+	for key, value of Picker._deviceList
+
+		if group.toLowerCase() is key.toLowerCase()
+
+			match = value._excludeFromList = false
+
+	if match
+
 		Picker.enable()
 
 	else
 		console.log "Picker: Can't include '#{group}', no group by that name"
+
 
 
 # Add dropdown for selecting a different device

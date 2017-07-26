@@ -62,6 +62,12 @@ Adapt is not a class, so just require it and you're good to go.
 {Adapt} = require "Adapt"
 ```
 
+
+## Compatibility
+
+Adapt uses a JavaScript Proxy object to achieve its syntax. Notably, this is only supported since iOS 10. For a full compatibility table, please check [http://caniuse.com/#feat=proxy](http://caniuse.com/#feat=proxy).
+
+
 ## Documentation
 
 ### Adapt.setBreakpoints(_obj_)

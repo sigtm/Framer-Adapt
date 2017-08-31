@@ -82,3 +82,9 @@ text = new TextLayer
 text.text += "s" if Adapt.columns isnt 1
 
 text.center()
+
+
+
+# To keep it simple, we'll just reload prototype on window resize in case you're in Canvas mode
+
+window.onresize = Utils.debounce 0.1, -> location.reload()

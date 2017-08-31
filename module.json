@@ -1,0 +1,11 @@
+{
+    "name": "Adapt",
+    "description": "Breakpoints for Framer, using responsive variables",
+    "author": "Sigurd Mannsåker",
+
+    "require": "{Adapt} = require 'Adapt'",
+    "install": "Adapt.coffee",
+    "example": "example-snippet.coffee",
+
+    "thumb": "adapt-thumbnail.png"
+}

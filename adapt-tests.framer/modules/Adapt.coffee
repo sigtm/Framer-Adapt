@@ -243,7 +243,7 @@ Picker._deviceList =
 		"sony-w85Oc": "SonyW85OC"
 
 		# Fullscreen
-		"fullscreen": true
+		# "fullscreen": true
 
 
 
@@ -276,7 +276,7 @@ Picker.include = (group = "") ->
 # Add dropdown for selecting a different device
 Picker.enable = ->
 
-	return if not isDesktop()
+	return if window.FramerStudio or not isDesktop() or Framer.Device.deviceType is "fullscreen"
 
 	if not Picker._controlDiv
 

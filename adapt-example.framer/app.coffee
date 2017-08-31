@@ -1,25 +1,20 @@
-# Require Adapt
+# Some basics
 # --------------------------------------------------------------------------------
 
 {Adapt} = require "Adapt"
 
+Screen.backgroundColor = Color.mix("#66eeaa", "white", 0.5)
+Canvas.backgroundColor = "#222"
 
 
-# Enable picker and exclude some stuff
+
+# Enable picker and exclude some device types we don't want
 # --------------------------------------------------------------------------------
 
 Adapt.picker.enable()
 
 Adapt.picker.exclude "Apple Watch"
 Adapt.picker.exclude "Other"
-
-
-
-# Set screen and canvas color
-# --------------------------------------------------------------------------------
-
-Canvas.backgroundColor = "#222"
-Screen.backgroundColor = "white"
 
 
 
@@ -33,7 +28,7 @@ Adapt.setBreakpoints
 
 
 
-# Now we'll define some parameters for our UI
+# Now we'll define some config for our UI
 # --------------------------------------------------------------------------------
 
 Adapt.columns =
@@ -43,19 +38,13 @@ Adapt.columns =
 	other: 6
 
 Adapt.gutter =
-	small: 6
-	medium: 12
-	large: 18
-	other: 24
-
-Adapt.text =
-	small: "Tiny"
-	medium: "Smallish"
-	large: "Normal"
-	other: "Huge!"
+	small: 12
+	medium: 24
+	large: 36
+	other: 48
 	
 Adapt.fontSize =
-	small: 48
+	small: 36
 	medium: 64
 	large: 96
 	other: 128
@@ -71,37 +60,27 @@ Adapt.fontSize =
 
 # Draw a column grid
 
-colWidth = Screen.width / Adapt.columns
+colWidth = Screen.width - Adapt.gutter
+colWidth /= Adapt.columns
 
 for i in [0...Adapt.columns]
 
 	column = new Layer
-		x: i * colWidth
+		x: (i * colWidth) + (Adapt.gutter / 2)
 		width: colWidth
 		height: Screen.height
-		backgroundColor: ""
-		opacity: 0.4
+		backgroundColor: "white"
+		scaleX: 1 - (Adapt.gutter / colWidth)
 	
-	inner = new Layer
-		parent: column
-		x: Adapt.gutter
-		width: column.width - (Adapt.gutter * 2)
-		height: column.height
-		backgroundColor: "#0cb"
 	
 		
 # Add text layer
 
 text = new TextLayer
-	text: Adapt.text
+	text: "#{Adapt.columns} column"
 	fontSize: Adapt.fontSize
-	fontWeight: "bold"
-	textTransform: "uppercase"
-	color: "#222"
+	color: "black"
+
+text.text += "s" if Adapt.columns isnt 1
 
 text.center()
-
-
-# We'll keep it simple and just refresh the prototype on resize
-
-window.onresize = Utils.debounce 0.1, -> location.reload()
